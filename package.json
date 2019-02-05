@@ -1,0 +1,16 @@
+{
+  "name": "bloggr",
+  "version": "1.0.0",
+  "description": "App to share public or write private posts.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js "
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.9",
+    "npm": "^6.7.0"
+  }
+}
