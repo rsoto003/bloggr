@@ -4,9 +4,9 @@
   "description": "App to share public or write private posts.",
   "main": "app.js",
   "scripts": {
-    "start": "npm start"
+    "start": "node app.js"
   },
-  "author": "",
+  "author": "Ryan Soto",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
