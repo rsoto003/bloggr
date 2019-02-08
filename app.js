@@ -1,21 +1,65 @@
 const express = require('express');
+const exphhbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+//Load User Model
+require('./models/User');
 //Passport Config
 require('./config/passport')(passport);
 
 //Load Routes
 const auth = require('./routes/auth');
+const index = require('./routes/index');
+
+//Load Keys
+const keys = require('./config/keys');
+
+//Get Rid of Promise Error: Map Global Promises
+mongoose.Promise = global.Promise;
+
+//Mongoose Connect
+mongoose.connect(keys.mongoURI, {
+    // useMongoClient: true,
+    useNewUrlParser: true
+}).then(() => {
+    console.log('mongoDB connected');
+}).catch(err => console.log(err));
+
+
 const app = express();
 
+//Handlebars Middleware
+app.engine('handlebars', exphhbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 
-//index route
-app.get('/', (req, res)=> {
-    res.send('this is the index page.');
+
+// app.use(cookieParser);
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+
+
+//Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Set global variables
+app.use((req, res, next) => {
+    res.locals.user = req.user || null;
+    next();
 });
+
 //Use Routes
 app.use('/auth', auth);
+app.use('/', index);
 
 const port = process.env.PORT || 5000;
 
