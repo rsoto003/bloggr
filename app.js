@@ -2,6 +2,7 @@ const express = require('express');
 const exphhbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
@@ -13,6 +14,7 @@ require('./config/passport')(passport);
 //Load Routes
 const auth = require('./routes/auth');
 const index = require('./routes/index');
+const posts = require('./routes/posts');
 
 //Load Keys
 const keys = require('./config/keys');
@@ -57,9 +59,13 @@ app.use((req, res, next) => {
     next();
 });
 
+//Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')))
+
 //Use Routes
 app.use('/auth', auth);
 app.use('/', index);
+app.use('/posts', posts)
 
 const port = process.env.PORT || 5000;
 
