@@ -4,14 +4,14 @@
     <form action="/posts" method="post" class="col s12">
         <div class="row">
             <div class="input-field">
-                <input type="text" name="title">
+                <input type="text" name="title" maxlength="25" class="flow-text">
                 <label for="title">Title</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field">
-                <select name="status" id="">
+                <select name="status">
                     <option value="public" selected>Public</option>
                     <option value="private">Private</option>
                     <option value="unpublished">Unpublished</option>
@@ -22,7 +22,7 @@
 
         <div class="row">
             <p>
-                <input type="checkbox" name="allowComments" class="filled-in" id="filled-in-box" checked="checked">
+                <input type="checkbox" name="allowComments" class="filled-in" id="allowComments" checked="checked">
                 <label for="allowComments">Allow Comments</label>
             </p>
         </div>

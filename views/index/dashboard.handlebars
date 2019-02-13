@@ -1,2 +1,33 @@
 <h1>Welcome, {{user.firstName}}</h1>
 <h4>Your Stories</h4>
+
+{{#if posts}}
+    <table class="striped responsive-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each posts}}
+                <tr>
+                    <td><a href="/posts/show/{{id}}">{{title}}</a></td>
+                    <td>{{formatDate data 'MMMM Do YYYY' }}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/posts/edit/{{id}}" class="btn left-align"><i class="fa fa-pencil"></i> Edit</a>
+                        <form action="/posts/{{id}}?_method=delete" id="delete-form" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn red"> <i class="fa fa-remove"></i> Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>You have not created any posts yet. Get started now!</p>
+{{/if}}

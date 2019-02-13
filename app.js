@@ -1,13 +1,17 @@
 const express = require('express');
 const exphhbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const methodOverride = require('method-override');
 
 //Load User Model
 require('./models/User');
+//Load Post model
+require('./models/Post');
 //Passport Config
 require('./config/passport')(passport);
 
@@ -18,6 +22,15 @@ const posts = require('./routes/posts');
 
 //Load Keys
 const keys = require('./config/keys');
+
+//Load Handlebars Helpers
+const {
+    truncate, 
+    stripTags,
+    formatDate,
+    select, 
+    editIcon
+} = require('./helpers/hbs');
 
 //Get Rid of Promise Error: Map Global Promises
 mongoose.Promise = global.Promise;
@@ -33,12 +46,26 @@ mongoose.connect(keys.mongoURI, {
 
 const app = express();
 
+//BodyParser middleware
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
+//Method Override Middleware
+app.use(methodOverride('_method'));
+
+
 //Handlebars Middleware
 app.engine('handlebars', exphhbs({
+    helpers: {
+        truncate: truncate,
+        stripTags: stripTags,
+        formatDate: formatDate,
+        select: select,
+        editIcon: editIcon
+    },
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
-
 
 
 // app.use(cookieParser);

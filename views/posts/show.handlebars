@@ -1,1 +1,67 @@
-<h1>Show Post</h1>
+<div class="row">
+    <div class="col s12 m8">
+        <h3>
+            {{post.title}}
+            <small>
+                {{{editIcon post.user.id user.id post.id false}}}
+            </small>
+        </h3>
+        <div class="card story">
+            <div class="card-content">
+                <span class="card-title">{{formatDate post.date 'MMMM Do YYYY'}}</span>
+                {{{post.body}}}
+            </div>
+        </div>
+            {{#if post.allowComments}}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Comments</span>
+                {{#if user}}
+                    <form action="/posts/comment/{{post.id}}" method="post">
+                        <div class="input-field">
+                            <textarea name="commentBody" class="materialize-textarea"></textarea>
+                            <label for="">Add Comment</label>
+                        </div>
+                        <input type="submit" value="Submit" class="btn">
+                    </form>
+                {{else}}
+                    <p>Please <a href="/auth/google">log in</a> to leave a comment.</p>
+                {{/if}}
+            </div>
+        </div>
+            {{#each post.comments}}
+                <div class="card">
+                    <div class="card-content">
+                        <h5>{{commentBody}}</h5>
+                        <div class="chip">
+                            <img src="{{commentUser.image}}">
+                            <a href="/posts/user/{{commentUser.id}}">
+                                {{commentUser.firstName}} {{commentUser.lastName}}
+                            </a>
+                        </div>
+                        <br>
+                        <small>Posted: {{formatDate commentDate 'MMMM Do, YYYY'}}</small>
+                    </div>
+                </div>
+            {{/each}}
+
+            {{/if}}
+    </div>
+
+
+
+    <div class="col s12 m4">
+        <div class="card center-align">
+            <div class="card-content">
+                <span class="card-title">
+                    {{post.user.firstName}} {{post.user.lastName}}
+                </span>
+                <img src="{{post.user.image}}" alt="" class="circle responsive-img profile-pic">
+                
+            </div>
+            <div class="card-action">
+                <a href="/posts/user/{{post.user.id}}">More From {{post.user.firstName}}</a>
+            </div>
+        </div>
+    </div>
+</div>

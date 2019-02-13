@@ -16,3 +16,20 @@ body {
   footer {
     margin-top: 20px;
   }
+
+  .story-text {
+    height: 120px;
+  }
+
+  .dash-status {
+    text-transform: capitalize;
+  }
+
+  #delete-form {
+    display: inline;
+  }
+
+  .profile-pic {
+    height: 100px;
+    width: 100px;
+  }
