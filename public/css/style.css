@@ -33,3 +33,6 @@ body {
     height: 100px;
     width: 100px;
   }
+  .login-buttons a {
+    width: 275px;
+  }
