@@ -1,9 +1,29 @@
 <h1>Welcome</h1>
 <p>Bloggr 1.0.0</p>
 <p>Post stories for your friends and the world to see!</p>
+
 {{#if user}}
 
 {{else}}
-    <a href="/auth/google"  class="btn red darken-1 "><i class="fa fa-google left"></i>Login With Google</a>
+{{!-- <div class="row s1">
+    <a href="/auth/google"  class="btn red darken-1 s1"><i class="fa fa-google left"></i>Login With Google</a>
+    <br>
+    <a href="/auth/twitter" class="btn blue darken-1 s1"><i class="fa fa-twitter left"></i>Login With Twitter</a>
+    <br>
+    <a href="/auth/twitter" class="btn darken-1 s1" style="color: e4405f"><i class="fa fa-instagram left"></i>Login With Instagram</a>
+</div> --}}
+
+<div class="col left login-buttons">
+  <div class="row s4" style="text-align: center;">
+        <a href="/auth/google"  class="btn red darken-1 s1"><i class="fa fa-google left"></i>Login With Google</a>
+  </div>
+  <div class="row s4" style="text-align: center;">
+        <a href="/auth/twitter" class="btn blue darken-1 s1"><i class="fa fa-twitter left"></i>Login With Twitter</a>
+  </div>
+  <div class="row s4" style="text-align: center">
+          <a href="/auth/instagram" class="btn darken-1 s1" style="background-color: #e4405f"><i class="fa fa-instagram left"></i>Login With Instagram</a>
+  </div>
+</div>
+
 {{/if}}
 
