@@ -9,7 +9,7 @@ module.exports = function(passport){
         new GoogleStrategy({
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,
-            callbackURL: "/auth/google/callback",
+            callbackURL: "http://127.0.0.1:3000/auth/twitter/callback",
             proxy: true
         },(accessToken, refreshToken, profile, done) => {
             // console.log(accessToken);
