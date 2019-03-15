@@ -22,6 +22,8 @@ const UserSchema = new Schema({
     }
 });
 
+
+
 //Create Collection and Schema
 
 mongoose.model('users', UserSchema);

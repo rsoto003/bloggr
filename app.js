@@ -14,6 +14,8 @@ require('./models/User');
 require('./models/Post');
 //Passport Config
 require('./config/passport')(passport);
+require('./config/twitter')(passport);
+
 
 //Load Routes
 const auth = require('./routes/auth');
@@ -39,19 +41,19 @@ mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI, {
     // useMongoClient: true,
     useNewUrlParser: true
-}).then(() => {
+}).then( () => {
     console.log('mongoDB connected');
-}).catch(err => console.log(err));
+}).catch( err => console.log(err));
 
 
 const app = express();
 
 //BodyParser middleware
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(bodyParser.json());
+app.use( bodyParser.urlencoded({ extended: false} ));
+app.use( bodyParser.json() );
 
 //Method Override Middleware
-app.use(methodOverride('_method'));
+app.use( methodOverride('_method') );
 
 
 //Handlebars Middleware
