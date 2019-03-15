@@ -1,2 +1,3 @@
+const TwitterStrategy = require('passport-twitter').Strategy;
 const mongoose = require('mongoose');
-const keys = require
+const keys = require('./keys');

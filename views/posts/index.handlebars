@@ -1,4 +1,4 @@
-<h1>Posts</h1>
+<h1 class="">Posts</h1>
 <div class="row">
     {{#each posts}}
         <div class="col s12 m4">
@@ -8,7 +8,7 @@
                         {{{editIcon user.id ../user.id id}}}
                     {{/if}}
                 </div>
-                <div class="card-content center-align">
+                <div class="card-content center-align same-size ">
                     <h5>{{title}}</h5>
                     <p class="story-text">{{stripTags (truncate body 150)}}</p>
                     <br>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-action center-align">
-                    <a class="btn grey" href="/posts/show/{{id}}">Details</a>
+                    <a class="waves-effect waves-light btn blue" href="/posts/show/{{id}}">Details</a>
                 </div>
             </div>
         </div>

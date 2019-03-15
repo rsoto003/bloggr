@@ -10,7 +10,6 @@ body {
 
   .nav-wrapper .fa-bars{
     font-size: 2em;
-
   }
 
   footer {
@@ -36,3 +35,9 @@ body {
   .login-buttons a {
     width: 275px;
   }
+
+  .same-size {
+    height: 300px;
+  }
+
+ 
