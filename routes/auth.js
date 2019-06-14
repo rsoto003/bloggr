@@ -10,10 +10,17 @@ router.get('/google/callback',
   passport.authenticate('google', { 
       failureRedirect: '/login' 
     }), (req, res) =>  {
-    // Successful authentication, redirect home.
     res.redirect('/dashboard');
-    // res.send('this worked bitch');
   });
+
+router.get('/twitter', passport.authenticate('twitter'));
+
+router.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login'}), 
+    (req, res) => {
+    res.redirect('/');
+    
+    }
+)
 
 router.get('/verify', (req, res) => {
     if(req.user){
@@ -27,11 +34,6 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-router.get('/twitter', passport.authenticate('twitter'));
 
-router.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login'}), (req, res) => {
-    res.redirect('/');
-    }
-)
 
 module.exports = router;
