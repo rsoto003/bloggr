@@ -5,7 +5,7 @@ const User = mongoose.model('users');
 const router = express.Router();
 const { ensureAuthenticated , ensureGuest }  = require('../helpers/auth');
 
-//Posts Index
+
 router.get('/', (req, res) => {
     Post.find({status: 'public'})
         .populate('user')
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
         });
     })
 });
-//Show Single Post
+
 router.get('/show/:id', (req, res) => {
     Post.findOne({
         _id: req.params.id
@@ -42,7 +42,7 @@ router.get('/show/:id', (req, res) => {
         }
     })
 });
-//List Post From a Specific User
+
 router.get('/user/:userId', (req, res) => {
     Post.find({
         user: req.params.userId,
@@ -56,7 +56,7 @@ router.get('/user/:userId', (req, res) => {
     });
 });
 
-//Logged in User's Posts
+
 router.get('/my', ensureAuthenticated, (req, res) => {
     Post.find({
         user: req.user.id,
@@ -69,14 +69,11 @@ router.get('/my', ensureAuthenticated, (req, res) => {
     });
 });
 
-
-
-//Add Post Form
 router.get('/add', ensureAuthenticated,(req, res) => {
     res.render('posts/add');
 });
 
-//Edit Post Route
+
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     Post.findOne({
         _id: req.params.id
@@ -92,7 +89,6 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     
 })
 
-//Process Add Posts
 router.post('/',  (req, res) => {
     let allowComments;
 
@@ -110,7 +106,6 @@ router.post('/',  (req, res) => {
         user: req.user.id
     }
 
-    //Create Post
     new Post(newPost)
         .save()
         .then(post => {
@@ -119,7 +114,6 @@ router.post('/',  (req, res) => {
 
 });
 
-//Edit Form Process
 router.put('/:id', (req,res) => {
     Post.findOne({ 
         _id: req.params.id
@@ -144,7 +138,6 @@ router.put('/:id', (req,res) => {
     });
 });
 
-//Delete Post
 router.delete('/:id', (req, res) => {
     Post.deleteOne({_id: req.params.id})
        .then(()=> {
@@ -153,7 +146,6 @@ router.delete('/:id', (req, res) => {
        console.log('story deleted.')
 });
 
-//Add Comment
 router.post('/comment/:id', (req, res) =>{
     Post.findOne({_id: req.params.id})
         .then(post => {
@@ -161,7 +153,6 @@ router.post('/comment/:id', (req, res) =>{
                 commentBody: req.body.commentBody,
                 commentUser: req.user.id
             }
-            //Add to Comments Array
             post.comments.unshift(newComment);
 
             post.save()

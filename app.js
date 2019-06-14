@@ -8,24 +8,22 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
 
-//Load User Model
+
 require('./models/User');
-//Load Post model
 require('./models/Post');
-//Passport Config
 require('./config/passport')(passport);
 require('./config/twitter')(passport);
 
 
-//Load Routes
+
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const posts = require('./routes/posts');
 
-//Load Keys
+
 const keys = require('./config/keys');
 
-//Load Handlebars Helpers
+
 const {
     truncate, 
     stripTags,
@@ -34,12 +32,11 @@ const {
     editIcon
 } = require('./helpers/hbs');
 
-//Get Rid of Promise Error: Map Global Promises
+s
 mongoose.Promise = global.Promise;
 
-//Mongoose Connect
+
 mongoose.connect(keys.mongoURI, {
-    // useMongoClient: true,
     useNewUrlParser: true
 }).then( () => {
     console.log('mongoDB connected');
@@ -48,15 +45,13 @@ mongoose.connect(keys.mongoURI, {
 
 const app = express();
 
-//BodyParser middleware
+//Middleware
 app.use( bodyParser.urlencoded({ extended: false} ));
 app.use( bodyParser.json() );
 
-//Method Override Middleware
+
 app.use( methodOverride('_method') );
 
-
-//Handlebars Middleware
 app.engine('handlebars', exphhbs({
     helpers: {
         truncate: truncate,
@@ -69,29 +64,22 @@ app.engine('handlebars', exphhbs({
 }));
 app.set('view engine', 'handlebars');
 
-
-// app.use(cookieParser);
 app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false
 }));
 
-
-//Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Set global variables
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
     next();
 });
 
-//Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
 
-//Use Routes
 app.use('/auth', auth);
 app.use('/', index);
 app.use('/posts', posts)
