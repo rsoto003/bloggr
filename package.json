@@ -18,7 +18,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.4.9",
     "nodemon": "^1.18.10",
-    "npm": "^6.7.0",
+    "npm": "^6.13.4",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-twitter": "^1.0.4"
